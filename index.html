@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF E-Signature Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="hero-bg">
+        <div class="animated-bg"></div>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-file-signature"></i>
+            </div>
+            <h1 class="title">PDF E-Signature Pro</h1>
+            <p class="subtitle">Sign your documents digitally with style</p>
+        </div>
+        
+        <div class="upload-section">
+            <div class="upload-card">
+                <label for="pdf-upload" class="upload-area pdf-upload">
+                    <input type="file" id="pdf-upload" accept=".pdf" hidden />
+                    <i class="fas fa-file-pdf"></i>
+                    <h3>Upload PDF Document</h3>
+                    <p>Click to browse or drag and drop</p>
+                    <span class="file-name" id="pdf-name"></span>
+                </label>
+            </div>
+            
+            <div class="upload-card">
+                <label for="signature-upload" class="upload-area signature-upload">
+                    <input type="file" id="signature-upload" accept=".png" hidden />
+                    <i class="fas fa-signature"></i>
+                    <h3>Upload Signature</h3>
+                    <p>PNG format recommended</p>
+                    <span class="file-name" id="sig-name"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="action-bar">
+            <button id="clear-signature" class="secondary-btn" disabled>
+                <i class="fas fa-eraser"></i>
+                Clear Signature
+            </button>
+            <button id="save-pdf" class="primary-btn" disabled>
+                <i class="fas fa-download"></i>
+                Save Signed PDF
+            </button>
+        </div>
+        
+        <div class="workspace">
+            <div id="pdf-container" class="pdf-viewer">
+                <div class="empty-state">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Upload a PDF document to get started</p>
+                </div>
+                <canvas id="pdf-canvas"></canvas>
+                <div id="signature-layer"></div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> How to use:</h3>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <p>Upload your PDF document</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <p>Upload your signature (PNG)</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <p>Drag signature to desired position</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <p>Resize if needed & save</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
