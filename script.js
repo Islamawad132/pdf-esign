@@ -1,17 +1,23 @@
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+// Wait for DOM and scripts to be ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Set PDF.js worker source when available
+    if (typeof pdfjsLib !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+    
+    let pdfDoc = null;
+    let currentPage = 1;
+    let scale = 1.5;
+    let signatureImg = null;
+    let pdfCanvas = document.getElementById('pdf-canvas');
+    let ctx = pdfCanvas.getContext('2d');
+    let signatureLayer = document.getElementById('signature-layer');
 
-let pdfDoc = null;
-let currentPage = 1;
-let scale = 1.5;
-let signatureImg = null;
-let pdfCanvas = document.getElementById('pdf-canvas');
-let ctx = pdfCanvas.getContext('2d');
-let signatureLayer = document.getElementById('signature-layer');
-
-document.getElementById('pdf-upload').addEventListener('change', handlePDFUpload);
-document.getElementById('signature-upload').addEventListener('change', handleSignatureUpload);
-document.getElementById('save-pdf').addEventListener('click', savePDFWithSignature);
-document.getElementById('clear-signature').addEventListener('click', clearSignatures);
+    // Initialize event listeners
+    document.getElementById('pdf-upload').addEventListener('change', handlePDFUpload);
+    document.getElementById('signature-upload').addEventListener('change', handleSignatureUpload);
+    document.getElementById('save-pdf').addEventListener('click', savePDFWithSignature);
+    document.getElementById('clear-signature').addEventListener('click', clearSignatures);
 
 async function handlePDFUpload(e) {
     const file = e.target.files[0];
@@ -227,3 +233,6 @@ async function savePDFWithSignature() {
     
     pdf.save('signed-document.pdf');
 }
+
+// Close DOMContentLoaded event listener
+});

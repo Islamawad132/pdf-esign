@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Font will be loaded via link tag with font-display: swap for better performance */
 
 * {
     margin: 0;
@@ -161,7 +161,7 @@ body {
     background-clip: text;
 }
 
-.upload-area h3 {
+.upload-area h2 {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 10px;
@@ -343,7 +343,7 @@ body {
     animation: fadeIn 0.8s ease-out 0.8s backwards;
 }
 
-.instructions h3 {
+.instructions h2 {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 20px;
@@ -353,7 +353,7 @@ body {
     gap: 10px;
 }
 
-.instructions h3 i {
+.instructions h2 i {
     color: #667eea;
 }
 

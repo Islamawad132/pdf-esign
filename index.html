@@ -3,13 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF E-Signature Pro</title>
+    <meta name="description" content="Professional PDF e-signature tool. Sign your documents digitally with style. Upload PDF, add signature, drag to position, and download signed document.">
+    <meta name="keywords" content="pdf signature, digital signature, e-signature, sign pdf online, pdf editor">
+    <meta name="author" content="PDF E-Signature Pro">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Security and Performance Meta Tags -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- PWA and Mobile Optimization -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    
+    <title>PDF E-Signature Pro - Sign Documents Digitally</title>
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+    
+    <!-- Optimized font loading with font-display swap -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6874682307249152"
          crossorigin="anonymous"></script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PDF E-Signature Pro",
+        "description": "Professional PDF e-signature tool. Sign your documents digitally with style.",
+        "url": "https://tahfiz.sbs",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Upload PDF documents",
+            "Add digital signatures",
+            "Drag and position signatures",
+            "Download signed documents"
+        ]
+    }
+    </script>
 </head>
 <body>
     <div class="hero-bg">
@@ -38,44 +92,44 @@
         <div class="upload-section">
             <div class="upload-card">
                 <label for="pdf-upload" class="upload-area pdf-upload">
-                    <input type="file" id="pdf-upload" accept=".pdf" hidden />
-                    <i class="fas fa-file-pdf"></i>
-                    <h3>Upload PDF Document</h3>
+                    <input type="file" id="pdf-upload" accept=".pdf" hidden aria-label="Upload PDF document file" />
+                    <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                    <h2>Upload PDF Document</h2>
                     <p>Click to browse or drag and drop</p>
-                    <span class="file-name" id="pdf-name"></span>
+                    <span class="file-name" id="pdf-name" aria-live="polite"></span>
                 </label>
             </div>
             
             <div class="upload-card">
                 <label for="signature-upload" class="upload-area signature-upload">
-                    <input type="file" id="signature-upload" accept=".png" hidden />
-                    <i class="fas fa-signature"></i>
-                    <h3>Upload Signature</h3>
+                    <input type="file" id="signature-upload" accept=".png" hidden aria-label="Upload signature image file" />
+                    <i class="fas fa-signature" aria-hidden="true"></i>
+                    <h2>Upload Signature</h2>
                     <p>PNG format recommended</p>
-                    <span class="file-name" id="sig-name"></span>
+                    <span class="file-name" id="sig-name" aria-live="polite"></span>
                 </label>
             </div>
         </div>
         
         <div class="action-bar">
-            <button id="clear-signature" class="secondary-btn" disabled>
-                <i class="fas fa-eraser"></i>
+            <button id="clear-signature" class="secondary-btn" disabled aria-label="Clear signature from document">
+                <i class="fas fa-eraser" aria-hidden="true"></i>
                 Clear Signature
             </button>
-            <button id="save-pdf" class="primary-btn" disabled>
-                <i class="fas fa-download"></i>
+            <button id="save-pdf" class="primary-btn" disabled aria-label="Download signed PDF document">
+                <i class="fas fa-download" aria-hidden="true"></i>
                 Save Signed PDF
             </button>
         </div>
         
         <div class="workspace">
-            <div id="pdf-container" class="pdf-viewer">
+            <div id="pdf-container" class="pdf-viewer" role="application" aria-label="PDF document viewer and signature workspace">
                 <div class="empty-state">
-                    <i class="fas fa-cloud-upload-alt"></i>
+                    <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
                     <p>Upload a PDF document to get started</p>
                 </div>
-                <canvas id="pdf-canvas"></canvas>
-                <div id="signature-layer"></div>
+                <canvas id="pdf-canvas" aria-label="PDF document canvas"></canvas>
+                <div id="signature-layer" aria-label="Signature positioning layer"></div>
             </div>
         </div>
         
@@ -90,22 +144,22 @@
         </div>
         
         <div class="instructions">
-            <h3><i class="fas fa-info-circle"></i> How to use:</h3>
+            <h2><i class="fas fa-info-circle" aria-hidden="true"></i> How to use:</h2>
             <div class="steps">
                 <div class="step">
-                    <span class="step-number">1</span>
+                    <span class="step-number" aria-label="Step 1">1</span>
                     <p>Upload your PDF document</p>
                 </div>
                 <div class="step">
-                    <span class="step-number">2</span>
+                    <span class="step-number" aria-label="Step 2">2</span>
                     <p>Upload your signature (PNG)</p>
                 </div>
                 <div class="step">
-                    <span class="step-number">3</span>
+                    <span class="step-number" aria-label="Step 3">3</span>
                     <p>Drag signature to desired position</p>
                 </div>
                 <div class="step">
-                    <span class="step-number">4</span>
+                    <span class="step-number" aria-label="Step 4">4</span>
                     <p>Resize if needed & save</p>
                 </div>
             </div>
@@ -122,15 +176,31 @@
         </div>
     </div>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="script.js"></script>
+    <!-- Defer heavy scripts to improve initial load time -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script defer src="script.js"></script>
     
     <!-- Initialize AdSense Ads -->
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
         (adsbygoogle = window.adsbygoogle || []).push({});
         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    
+    <!-- Register Service Worker for better performance -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
     </script>
 </body>
 </html>
