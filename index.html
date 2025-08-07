@@ -65,8 +65,20 @@
         ]
     }
     </script>
+
+
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6874682307249152"
+     crossorigin="anonymous"></script>
+
 </head>
 <body>
+    <amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-6874682307249152">
+</amp-auto-ads>
     <div class="hero-bg">
         <div class="animated-bg"></div>
     </div>
@@ -77,7 +89,7 @@
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-6874682307249152"
-                 data-ad-slot="1234567890"
+                 data-ad-slot="8931199653"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
         </div>
@@ -138,10 +150,9 @@
         <div class="ad-container middle-ad">
             <ins class="adsbygoogle"
                  style="display:block"
+                 data-ad-format="autorelaxed"
                  data-ad-client="ca-pub-6874682307249152"
-                 data-ad-slot="0987654321"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+                 data-ad-slot="5542618989"></ins>
         </div>
         
         <div class="instructions">
@@ -170,10 +181,9 @@
         <div class="ad-container bottom-ad">
             <ins class="adsbygoogle"
                  style="display:block"
+                 data-ad-format="autorelaxed"
                  data-ad-client="ca-pub-6874682307249152"
-                 data-ad-slot="1122334455"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+                 data-ad-slot="5286618050"></ins>
         </div>
     </div>
     
@@ -184,9 +194,12 @@
     
     <!-- Initialize AdSense Ads -->
     <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        (adsbygoogle = window.adsbygoogle || []).push({});
+        // Initialize all ads when ready
+        window.addEventListener('load', function() {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        });
     </script>
     
     <!-- Register Service Worker for better performance -->
