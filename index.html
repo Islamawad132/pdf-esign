@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimal-ui">
     
     <!-- Styles moved to styles.css for better organization -->
     <meta name="description" content="أداة مجانية وآمنة لتوقيع ملفات PDF. وقع مستنداتك الإلكترونية بسهولة وأمان بدون تسجيل مطلوب. أداة محلية آمنة 100%">
@@ -368,22 +368,37 @@
                 sidebar.style.opacity = '1';
             }
             
-            // Theme toggle functionality
+            // Theme toggle functionality with mobile support
             const themeToggle = document.getElementById('theme-toggle');
             if (themeToggle) {
-                themeToggle.addEventListener('click', function() {
+                const toggleTheme = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
                     const html = document.documentElement;
                     const currentTheme = html.getAttribute('data-theme');
                     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                     html.setAttribute('data-theme', newTheme);
                     localStorage.setItem('theme', newTheme);
+                };
+                
+                // Add both click and touch events
+                themeToggle.addEventListener('click', toggleTheme);
+                themeToggle.addEventListener('touchend', toggleTheme);
+                
+                // Prevent default touch behaviors
+                themeToggle.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
                 });
             }
             
-            // Language toggle functionality
+            // Language toggle functionality with mobile support
             const langToggle = document.getElementById('lang-toggle');
             if (langToggle) {
-                langToggle.addEventListener('click', function() {
+                const toggleLang = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
                     const html = document.documentElement;
                     const currentLang = html.getAttribute('lang');
                     const newLang = currentLang === 'ar' ? 'en' : 'ar';
@@ -396,6 +411,15 @@
                     if (langText) {
                         langText.textContent = newLang === 'ar' ? 'EN' : 'ع';
                     }
+                };
+                
+                // Add both click and touch events
+                langToggle.addEventListener('click', toggleLang);
+                langToggle.addEventListener('touchend', toggleLang);
+                
+                // Prevent default touch behaviors
+                langToggle.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
                 });
             }
             

@@ -252,9 +252,12 @@ function initializeTheme() {
     html.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
     
-    // Theme toggle event listener
+    // Theme toggle event listener (with mobile support)
     if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
+        const toggleTheme = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
@@ -267,6 +270,15 @@ function initializeTheme() {
             setTimeout(() => {
                 themeToggle.style.transform = 'scale(1)';
             }, 150);
+        };
+        
+        // Add both click and touch events for mobile compatibility
+        themeToggle.addEventListener('click', toggleTheme);
+        themeToggle.addEventListener('touchend', toggleTheme);
+        
+        // Prevent default touch behaviors
+        themeToggle.addEventListener('touchstart', function(e) {
+            e.preventDefault();
         });
     }
 }
@@ -293,9 +305,12 @@ function initializeLanguage() {
     const savedLang = localStorage.getItem('language') || 'ar';
     setLanguage(savedLang);
     
-    // Language toggle event listener
+    // Language toggle event listener (with mobile support)
     if (langToggle) {
-        langToggle.addEventListener('click', function() {
+        const toggleLanguage = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
             const currentLang = html.getAttribute('lang');
             const newLang = currentLang === 'ar' ? 'en' : 'ar';
             
@@ -307,6 +322,15 @@ function initializeLanguage() {
             setTimeout(() => {
                 langToggle.style.transform = 'scale(1)';
             }, 150);
+        };
+        
+        // Add both click and touch events for mobile compatibility
+        langToggle.addEventListener('click', toggleLanguage);
+        langToggle.addEventListener('touchend', toggleLanguage);
+        
+        // Prevent default touch behaviors
+        langToggle.addEventListener('touchstart', function(e) {
+            e.preventDefault();
         });
     }
 }
@@ -315,6 +339,7 @@ function setLanguage(lang) {
     const html = document.documentElement;
     const langToggle = document.getElementById('lang-toggle');
     const langText = langToggle?.querySelector('.lang-text');
+    const sidebar = document.getElementById('sidebar');
     
     // Update HTML attributes
     html.setAttribute('lang', lang);
@@ -323,6 +348,27 @@ function setLanguage(lang) {
     // Update toggle button text
     if (langText) {
         langText.textContent = lang === 'ar' ? 'EN' : 'ع';
+    }
+    
+    // Force layout recalculation after direction change
+    if (sidebar) {
+        // Temporarily hide sidebar to prevent visual glitch
+        sidebar.style.transition = 'none';
+        sidebar.offsetHeight; // Force reflow
+        sidebar.style.transition = 'all 0.3s ease';
+        
+        // Reset sidebar state based on screen size
+        if (window.innerWidth <= 991) {
+            sidebar.classList.remove('active');
+        }
+        
+        // Clear any inline styles to let CSS handle direction
+        sidebar.style.transform = '';
+        sidebar.style.width = '';
+        sidebar.style.height = '';
+        sidebar.style.top = '';
+        sidebar.style.left = '';
+        sidebar.style.right = '';
     }
     
     // Update all translatable elements
@@ -356,11 +402,11 @@ function updateTranslations(lang) {
 // Navigation Management System
 function initializeNavigation() {
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const sidebar = document.getElementById('sidebar');
+    const sidebarEl = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebar-overlay');
     const mainContent = document.querySelector('.main-content');
     
-    console.log('Initializing navigation...', { mobileMenuToggle, sidebar, sidebarOverlay }); // Debug
+    console.log('Initializing navigation...', { mobileMenuToggle, sidebarEl, sidebarOverlay }); // Debug
     console.log('Current language direction:', document.documentElement.getAttribute('dir')); // Debug
     
     // Mobile menu toggle
@@ -378,31 +424,90 @@ function initializeNavigation() {
         });
     }
     
-    // Close sidebar when clicking outside on mobile
+    // Close sidebar when clicking on close button (mobile)
+    if (sidebarEl) {
+        sidebarEl.addEventListener('click', function(e) {
+            // Check if clicked on the close button (::before pseudo-element)
+            const rect = sidebarEl.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+            
+            // Close button area (top-right 70x70 pixels on mobile and tablet)
+            if (window.innerWidth <= 991) {
+                const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+                const closeButtonArea = isRTL ? 
+                    (clickX <= 70 && clickY <= 70) : 
+                    (clickX >= rect.width - 70 && clickY <= 70);
+                
+                if (closeButtonArea) {
+                    closeSidebar();
+                    e.stopPropagation();
+                }
+            }
+        });
+    }
+    
+    // Close sidebar when clicking outside on mobile and tablet
     document.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768) {
-            if (!sidebar?.contains(e.target) && !mobileMenuToggle?.contains(e.target)) {
+        if (window.innerWidth <= 991) {
+            if (!sidebarEl?.contains(e.target) && !mobileMenuToggle?.contains(e.target)) {
                 closeSidebar();
             }
         }
     });
     
-    // Handle window resize
+    // Handle window resize with better responsive behavior
     window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
+        const sidebar = document.getElementById('sidebar');
+        const html = document.documentElement;
+        const isRTL = html.getAttribute('dir') === 'rtl';
+        
+        if (window.innerWidth > 991) {
+            // Desktop: Show sidebar and remove mobile/tablet active state
+            if (sidebar) {
+                sidebar.classList.remove('active');
+                // Reset inline styles for desktop (let CSS take over)
+                sidebar.style.transform = '';
+                sidebar.style.width = '';
+                sidebar.style.height = '';
+                sidebar.style.top = '';
+                sidebar.style.left = '';
+                sidebar.style.right = '';
+            }
             closeSidebar();
-            sidebar?.classList.remove('hidden');
-            mainContent?.classList.remove('expanded');
         } else {
-            sidebar?.classList.add('hidden');
-            mainContent?.classList.add('expanded');
+            // Mobile/Tablet: Hide sidebar by default
+            if (sidebar) {
+                sidebar.classList.remove('active');
+                // Remove inline styles to let mobile/tablet CSS take over
+                sidebar.style.transform = '';
+                sidebar.style.width = '';
+                sidebar.style.height = '';
+                sidebar.style.top = '';
+                sidebar.style.left = '';
+                sidebar.style.right = '';
+            }
+            closeSidebar();
         }
     });
     
-    // Initialize responsive state
-    if (window.innerWidth <= 768) {
-        sidebar?.classList.add('hidden');
-        mainContent?.classList.add('expanded');
+    // Initialize responsive state with proper direction handling
+    const sidebarElement = document.getElementById('sidebar');
+    const html = document.documentElement;
+    
+    if (window.innerWidth <= 991) {
+        // Mobile/Tablet: hide sidebar by default
+        if (sidebarElement) {
+            sidebarElement.classList.remove('active');
+            // Let CSS handle the mobile/tablet styles
+        }
+        closeSidebar();
+    } else {
+        // Desktop: show sidebar
+        if (sidebarElement) {
+            sidebarElement.classList.remove('active');
+            // Let CSS handle the desktop styles
+        }
     }
 }
 
@@ -514,6 +619,21 @@ function addPageTransition() {
 
 // Initialize page transitions
 document.addEventListener('DOMContentLoaded', addPageTransition);
+
+// Initialize everything when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Script loaded and DOM ready');
+    
+    initializeTheme();
+    initializeLanguage();
+    initializeNavigation();
+    
+    // Update active navigation
+    updateActiveNavigation();
+    
+    // Initialize responsive layout
+    console.log('Script loaded - initializing responsive layout');
+});
 
 // Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
