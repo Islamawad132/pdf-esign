@@ -60,4 +60,14 @@
         <xhtml:link rel="alternate" hreflang="ar" href="https://tahfiz.sbs/contact.html" />
         <xhtml:link rel="alternate" hreflang="en" href="https://tahfiz.sbs/contact.html" />
     </url>
+    
+    <!-- Privacy Policy Page -->
+    <url>
+        <loc>https://tahfiz.sbs/privacy.html</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://tahfiz.sbs/privacy.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tahfiz.sbs/privacy.html" />
+    </url>
 </urlset>
