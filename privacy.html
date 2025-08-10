@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="سياسة الخصوصية | حماية بياناتك وخصوصيتك هي أولويتنا القصوى">
+    <meta name="description" content="سياسة الخصوصية - نحن ملتزمون بحماية خصوصيتك وأمان بياناتك | Privacy Policy - We are committed to protecting your privacy and data security">
     <title>سياسة الخصوصية | Privacy Policy</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6874682307249152" crossorigin="anonymous"></script>
 </head>
 <body>
     <header class="header-nav">
@@ -17,57 +20,122 @@
                 <div class="logo">
                     <i class="fas fa-shield-alt"></i>
                 </div>
-                <span class="brand-text">سياسة الخصوصية</span>
+                <span class="brand-text" data-en="Privacy Policy" data-ar="سياسة الخصوصية">سياسة الخصوصية</span>
             </div>
             
             <nav class="nav-menu">
-                <a href="index.html" class="nav-link">الرئيسية</a>
-                <a href="about.html" class="nav-link">حول</a>
-                <a href="contact.html" class="nav-link">اتصل بنا</a>
+                <a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية">الرئيسية</a>
+                <a href="tools.html" class="nav-link" data-en="Tools" data-ar="الأدوات">الأدوات</a>
+                <a href="about.html" class="nav-link" data-en="About" data-ar="حول">حول</a>
+                <a href="help.html" class="nav-link" data-en="Help" data-ar="مساعدة">مساعدة</a>
+                <a href="privacy.html" class="nav-link active" data-en="Privacy" data-ar="الخصوصية">الخصوصية</a>
+                <a href="contact.html" class="nav-link" data-en="Contact" data-ar="اتصل بنا">اتصل بنا</a>
             </nav>
+            
+            <div class="nav-controls">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">
+                    <span class="lang-text">EN</span>
+                </button>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">سياسة الخصوصية</h1>
-                <p class="page-subtitle">نحن ملتزمون بحماية خصوصيتك وأمان بياناتك</p>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h3 data-en="Quick Tools" data-ar="الأدوات السريعة">الأدوات السريعة</h3>
+                <a href="index.html" class="sidebar-link">
+                    <i class="fas fa-file-signature"></i>
+                    <span data-en="PDF Signature" data-ar="توقيع PDF">توقيع PDF</span>
+                </a>
+                <a href="tools.html" class="sidebar-link">
+                    <i class="fas fa-tools"></i>
+                    <span data-en="PDF Tools" data-ar="أدوات PDF">أدوات PDF</span>
+                </a>
             </div>
             
-            <section class="content-section">
-                <h2>🔒 التزامنا بالخصوصية</h2>
-                <p>نحن في موقع توقيع PDF نؤمن بأن خصوصيتك حق أساسي. جميع العمليات تتم محلياً في متصفحك ولا نقوم بجمع أو تخزين أي من مستنداتك الشخصية.</p>
+            <div class="sidebar-section">
+                <h3 data-en="Information" data-ar="المعلومات">المعلومات</h3>
+                <a href="about.html" class="sidebar-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span data-en="About Us" data-ar="حولنا">حولنا</span>
+                </a>
+                <a href="help.html" class="sidebar-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span data-en="Help Center" data-ar="مركز المساعدة">مركز المساعدة</span>
+                </a>
+                <a href="privacy.html" class="sidebar-link active">
+                    <i class="fas fa-shield-alt"></i>
+                    <span data-en="Privacy Policy" data-ar="سياسة الخصوصية">سياسة الخصوصية</span>
+                </a>
+                <a href="contact.html" class="sidebar-link">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Contact" data-ar="اتصل بنا">اتصل بنا</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="hero-bg">
+            <div class="animated-bg"></div>
+        </div>
+        
+        <div class="container">
+            <!-- Top Ad -->
+            <div class="ad-container top-ad">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6874682307249152" data-ad-slot="8931199653" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            </div>
+            
+            <div class="page-header">
+                <h1 class="page-title" data-en="Privacy Policy" data-ar="سياسة الخصوصية">سياسة الخصوصية</h1>
+                <p class="page-subtitle" data-en="We are committed to protecting your privacy and data security" data-ar="نحن ملتزمون بحماية خصوصيتك وأمان بياناتك">نحن ملتزمون بحماية خصوصيتك وأمان بياناتك</p>
+            </div>
+            
+            <section class="content-section seo-content">
+                <h2 data-en="🔒 Our Privacy Commitment" data-ar="🔒 التزامنا بالخصوصية">🔒 التزامنا بالخصوصية</h2>
+                <p data-en="At PDF E-Signature Pro, we believe that your privacy is a fundamental right. All operations are performed locally in your browser and we do not collect or store any of your personal documents." data-ar="نحن في موقع توقيع PDF نؤمن بأن خصوصيتك حق أساسي. جميع العمليات تتم محلياً في متصفحك ولا نقوم بجمع أو تخزين أي من مستنداتك الشخصية.">نحن في موقع توقيع PDF نؤمن بأن خصوصيتك حق أساسي. جميع العمليات تتم محلياً في متصفحك ولا نقوم بجمع أو تخزين أي من مستنداتك الشخصية.</p>
                 
-                <h3>ما المعلومات التي نجمعها؟</h3>
+                <h3 data-en="What Information Do We Collect?" data-ar="ما المعلومات التي نجمعها؟">ما المعلومات التي نجمعها؟</h3>
                 <ul>
-                    <li>لا نجمع أي مستندات أو ملفات PDF ترفعها</li>
-                    <li>لا نجمع صور التوقيعات الخاصة بك</li>
-                    <li>قد نجمع معلومات تحليلية عامة عن استخدام الموقع (مثل عدد الزوار)</li>
+                    <li data-en="We do not collect any documents or PDF files you upload" data-ar="لا نجمع أي مستندات أو ملفات PDF ترفعها">لا نجمع أي مستندات أو ملفات PDF ترفعها</li>
+                    <li data-en="We do not collect your signature images" data-ar="لا نجمع صور التوقيعات الخاصة بك">لا نجمع صور التوقيعات الخاصة بك</li>
+                    <li data-en="We may collect general analytics about site usage (such as visitor count)" data-ar="قد نجمع معلومات تحليلية عامة عن استخدام الموقع (مثل عدد الزوار)">قد نجمع معلومات تحليلية عامة عن استخدام الموقع (مثل عدد الزوار)</li>
                 </ul>
                 
-                <h3>كيف نحمي بياناتك؟</h3>
+                <h3 data-en="How Do We Protect Your Data?" data-ar="كيف نحمي بياناتك؟">كيف نحمي بياناتك؟</h3>
                 <ul>
-                    <li>جميع العمليات تتم في متصفحك مباشرة</li>
-                    <li>لا يتم إرسال أي ملفات إلى خوادمنا</li>
-                    <li>نستخدم بروتوكولات أمان متقدمة</li>
-                    <li>الموقع محمي بشهادة SSL</li>
+                    <li data-en="All operations are performed directly in your browser" data-ar="جميع العمليات تتم في متصفحك مباشرة">جميع العمليات تتم في متصفحك مباشرة</li>
+                    <li data-en="No files are sent to our servers" data-ar="لا يتم إرسال أي ملفات إلى خوادمنا">لا يتم إرسال أي ملفات إلى خوادمنا</li>
+                    <li data-en="We use advanced security protocols" data-ar="نستخدم بروتوكولات أمان متقدمة">نستخدم بروتوكولات أمان متقدمة</li>
+                    <li data-en="The site is protected with SSL certificate" data-ar="الموقع محمي بشهادة SSL">الموقع محمي بشهادة SSL</li>
                 </ul>
                 
-                <h3>ملفات تعريف الارتباط (Cookies)</h3>
-                <p>نستخدم ملفات تعريف الارتباط فقط لحفظ تفضيلاتك مثل اللغة والموضوع المفضل.</p>
+                <h3 data-en="Cookies" data-ar="ملفات تعريف الارتباط (Cookies)">ملفات تعريف الارتباط (Cookies)</h3>
+                <p data-en="We only use cookies to save your preferences such as language and preferred theme." data-ar="نستخدم ملفات تعريف الارتباط فقط لحفظ تفضيلاتك مثل اللغة والموضوع المفضل.">نستخدم ملفات تعريف الارتباط فقط لحفظ تفضيلاتك مثل اللغة والموضوع المفضل.</p>
                 
-                <h3>الإعلانات</h3>
-                <p>نستخدم Google AdSense لعرض إعلانات مناسبة. قد تجمع Google معلومات عامة عن تصفحك وفقاً لسياسة الخصوصية الخاصة بها.</p>
+                <h3 data-en="Advertising" data-ar="الإعلانات">الإعلانات</h3>
+                <p data-en="We use Google AdSense to display relevant ads. Google may collect general information about your browsing according to their privacy policy." data-ar="نستخدم Google AdSense لعرض إعلانات مناسبة. قد تجمع Google معلومات عامة عن تصفحك وفقاً لسياسة الخصوصية الخاصة بها.">نستخدم Google AdSense لعرض إعلانات مناسبة. قد تجمع Google معلومات عامة عن تصفحك وفقاً لسياسة الخصوصية الخاصة بها.</p>
                 
-                <h3>اتصل بنا</h3>
-                <p>إذا كان لديك أي استفسارات حول سياسة الخصوصية، يرجى التواصل معنا عبر: <a href="mailto:privacy@tahfiz.sbs">privacy@tahfiz.sbs</a></p>
+                <h3 data-en="Contact Us" data-ar="اتصل بنا">اتصل بنا</h3>
+                <p data-en="If you have any questions about this privacy policy, please contact us at: " data-ar="إذا كان لديك أي استفسارات حول سياسة الخصوصية، يرجى التواصل معنا عبر: ">إذا كان لديك أي استفسارات حول سياسة الخصوصية، يرجى التواصل معنا عبر: <a href="mailto:privacy@tahfiz.sbs">privacy@tahfiz.sbs</a></p>
                 
-                <p><small>آخر تحديث: ديسمبر 2024</small></p>
+                <p><small data-en="Last updated: December 2024" data-ar="آخر تحديث: ديسمبر 2024">آخر تحديث: ديسمبر 2024</small></p>
             </section>
         </div>
     </main>
     
+    <!-- Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    
     <script src="script.js"></script>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </body>
 </html>
