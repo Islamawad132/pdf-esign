@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tahfiz.sbs/sitemap.xml
+
+# Allow search engines to crawl all content
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.gif
+Allow: /*.svg
+
+# Block crawling of admin areas if they exist
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.log
+
+# Crawl delay for better server performance
+Crawl-delay: 1

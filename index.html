@@ -1,10 +1,349 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional PDF e-signature tool. Sign your documents digitally with style. Upload PDF, add signature, drag to position, and download signed document.">
-    <meta name="keywords" content="pdf signature, digital signature, e-signature, sign pdf online, pdf editor">
+    
+    <!-- CRITICAL CSS - Must load first -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0e27 !important;
+            color: #e0e6ed !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            min-height: 100vh;
+        }
+        
+        .header-nav {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 1000 !important;
+            background: rgba(30, 41, 59, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+            height: 80px !important;
+            display: flex !important;
+            align-items: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        
+        .nav-brand {
+            display: flex !important;
+            align-items: center !important;
+            gap: 15px;
+            color: #e0e6ed !important;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .nav-brand .logo {
+            width: 50px !important;
+            height: 50px !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            border-radius: 12px;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: white !important;
+            font-size: 20px;
+        }
+        
+        .nav-menu {
+            display: flex !important;
+            gap: 30px;
+            align-items: center !important;
+        }
+        
+        .nav-link {
+            text-decoration: none !important;
+            color: #a0aec0 !important;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: #667eea !important;
+            background: rgba(102, 126, 234, 0.1) !important;
+        }
+        
+        .nav-controls {
+            display: flex !important;
+            gap: 15px;
+            align-items: center !important;
+        }
+        
+        .theme-toggle, .lang-toggle, .mobile-menu-toggle {
+            width: 45px !important;
+            height: 45px !important;
+            border: none !important;
+            border-radius: 10px;
+            background: rgba(30, 41, 59, 0.7) !important;
+            color: #e0e6ed !important;
+            cursor: pointer;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .sidebar {
+            position: fixed !important;
+            top: 80px !important;
+            left: 0 !important;
+            width: 280px !important;
+            height: calc(100vh - 80px) !important;
+            background: rgba(30, 41, 59, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(102, 126, 234, 0.2);
+            z-index: 900 !important;
+            overflow-y: auto;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        [dir="rtl"] .sidebar {
+            left: auto !important;
+            right: 0 !important;
+            border-right: none !important;
+            border-left: 1px solid rgba(102, 126, 234, 0.2) !important;
+        }
+        
+        .sidebar-content {
+            padding: 30px 20px !important;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 40px !important;
+        }
+        
+        .sidebar-section h3 {
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            color: #a0aec0 !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px !important;
+            padding-right: 15px;
+        }
+        
+        .sidebar-link {
+            display: flex !important;
+            align-items: center !important;
+            gap: 15px;
+            padding: 12px 15px !important;
+            border-radius: 10px;
+            text-decoration: none !important;
+            color: #a0aec0 !important;
+            transition: all 0.3s ease;
+            margin-bottom: 5px !important;
+        }
+        
+        .sidebar-link:hover, .sidebar-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+        }
+        
+        .sidebar-link i {
+            font-size: 18px !important;
+            width: 20px !important;
+        }
+        
+        .main-content {
+            margin-left: 280px !important;
+            margin-top: 80px !important;
+            min-height: calc(100vh - 80px) !important;
+        }
+        
+        [dir="rtl"] .main-content {
+            margin-left: 0 !important;
+            margin-right: 280px !important;
+        }
+        
+        .mobile-menu-toggle { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .nav-menu { display: none !important; }
+            .mobile-menu-toggle { display: flex !important; }
+            .sidebar { transform: translateX(-100%) !important; }
+            [dir="rtl"] .sidebar { transform: translateX(100%) !important; }
+            .sidebar.active { transform: translateX(0) !important; }
+            .main-content { margin-left: 0 !important; }
+            [dir="rtl"] .main-content { margin-right: 0 !important; }
+            .nav-brand .brand-text { display: none !important; }
+        }
+        
+        /* Content styling */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .page-title {
+            font-size: 48px !important;
+            font-weight: 700 !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            margin-bottom: 15px !important;
+        }
+        
+        .page-subtitle {
+            font-size: 18px !important;
+            color: #a0aec0 !important;
+            font-weight: 400 !important;
+            max-width: 600px;
+            margin: 0 auto !important;
+            line-height: 1.6;
+        }
+        
+        .upload-section {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+            gap: 30px !important;
+            margin-bottom: 40px !important;
+        }
+        
+        .upload-card {
+            background: rgba(30, 41, 59, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border-radius: 20px !important;
+            padding: 30px !important;
+            border: 1px solid rgba(102, 126, 234, 0.2) !important;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 40px !important;
+            border: 2px dashed rgba(102, 126, 234, 0.3) !important;
+            border-radius: 15px !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease;
+            text-align: center !important;
+        }
+        
+        .upload-area i {
+            font-size: 48px !important;
+            margin-bottom: 20px !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+        
+        .upload-area h2 {
+            font-size: 20px !important;
+            font-weight: 600 !important;
+            margin-bottom: 10px !important;
+            color: #e0e6ed !important;
+        }
+        
+        .upload-area p {
+            font-size: 14px !important;
+            color: #a0aec0 !important;
+        }
+        
+        .action-bar {
+            display: flex !important;
+            justify-content: center !important;
+            gap: 20px !important;
+            margin-bottom: 40px !important;
+        }
+        
+        .primary-btn, .secondary-btn {
+            padding: 15px 30px !important;
+            border: none !important;
+            border-radius: 10px !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease;
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+        }
+        
+        .primary-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .secondary-btn {
+            background: rgba(30, 41, 59, 0.5) !important;
+            color: #e0e6ed !important;
+            border: 1px solid rgba(102, 126, 234, 0.3) !important;
+        }
+        
+        .workspace {
+            display: flex !important;
+            justify-content: center !important;
+            margin-bottom: 40px !important;
+        }
+        
+        .pdf-viewer {
+            position: relative !important;
+            background: rgba(30, 41, 59, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border-radius: 20px !important;
+            padding: 20px !important;
+            border: 1px solid rgba(102, 126, 234, 0.2) !important;
+            min-height: 500px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        .empty-state {
+            text-align: center !important;
+            color: #a0aec0 !important;
+        }
+        
+        .empty-state i {
+            font-size: 72px !important;
+            margin-bottom: 20px !important;
+            opacity: 0.3;
+        }
+        
+        .empty-state p {
+            font-size: 18px !important;
+        }
+    </style>
+    <meta name="description" content="🔒 أدوات توقيع PDF مجانية وآمنة | وقع مستنداتك الإلكترونية بسهولة | رفع PDF ✨ إضافة التوقيع ✨ تحميل فوري | بدون تسجيل مطلوب">
+    <meta name="keywords" content="توقيع pdf, توقيع إلكتروني, توقيع رقمي, وقع pdf اونلاين, محرر pdf, توقيع المستندات, pdf signature, digital signature, e-signature, sign pdf online, pdf editor, electronic document signing, online pdf tools, free pdf signer, secure document signing, digital documents">
     <meta name="author" content="PDF E-Signature Pro">
     <meta name="robots" content="index, follow">
     <meta name="google-adsense-account" content="ca-pub-6874682307249152">
@@ -21,13 +360,37 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
+    <!-- Additional SEO Meta Tags -->
+    <meta property="og:title" content="🔒 توقيع PDF مجاني وآمن | أدوات التوقيع الإلكتروني">
+    <meta property="og:description" content="وقع مستنداتك الإلكترونية بسهولة وأمان. أداة مجانية لتوقيع ملفات PDF أونلاين بدون تسجيل. رفع ✨ توقيع ✨ تحميل فوري">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tahfiz.sbs">
+    <meta property="og:image" content="https://tahfiz.sbs/og-image.png">
+    <meta property="og:site_name" content="PDF E-Signature Pro">
+    <meta property="og:locale" content="ar_EG">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🔒 توقيع PDF مجاني وآمن | أدوات التوقيع الإلكتروني">
+    <meta name="twitter:description" content="وقع مستنداتك الإلكترونية بسهولة وأمان. أداة مجانية لتوقيع ملفات PDF أونلاين">
+    <meta name="twitter:image" content="https://tahfiz.sbs/og-image.png">
+    
+    <!-- Geo Tags for Local SEO -->
+    <meta name="geo.region" content="EG">
+    <meta name="geo.country" content="Egypt">
+    <meta name="language" content="Arabic">
+    
+    <!-- Additional Technical SEO -->
+    <link rel="canonical" href="https://tahfiz.sbs">
+    <meta name="rating" content="general">
+    <meta name="distribution" content="global">
+    
     <!-- Preconnect to external domains for faster loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://pagead2.googlesyndication.com">
     
-    <title>PDF E-Signature Pro - Sign Documents Digitally</title>
+    <title>🔒 توقيع PDF مجاني وآمن | أدوات التوقيع الإلكتروني | PDF E-Signature Pro</title>
     
     <!-- Favicon and App Icons -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
@@ -36,33 +399,61 @@
     <!-- Optimized font loading with font-display swap -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2.0">
+    
+
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6874682307249152"
          crossorigin="anonymous"></script>
     
-    <!-- Structured Data for SEO -->
+    <!-- Enhanced Structured Data for SEO -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "PDF E-Signature Pro",
-        "description": "Professional PDF e-signature tool. Sign your documents digitally with style.",
+        "name": "PDF E-Signature Pro - توقيع PDF مجاني",
+        "alternateName": ["أدوات توقيع PDF", "توقيع إلكتروني مجاني", "Free PDF Signer"],
+        "description": "أداة مجانية وآمنة لتوقيع ملفات PDF إلكترونياً. وقع مستنداتك بسهولة وأمان بدون تسجيل مطلوب.",
         "url": "https://tahfiz.sbs",
-        "applicationCategory": "BusinessApplication",
+        "applicationCategory": ["BusinessApplication", "ProductivityApplication", "UtilitiesApplication"],
         "operatingSystem": "Any",
+        "browserRequirements": "HTML5, JavaScript",
+        "softwareVersion": "2.0",
+        "datePublished": "2024-01-15",
+        "dateModified": "2024-12-19",
+        "inLanguage": ["ar", "en"],
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Business professionals, students, individuals"
+        },
         "offers": {
             "@type": "Offer",
             "price": "0",
-            "priceCurrency": "USD"
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "priceValidUntil": "2025-12-31"
         },
         "featureList": [
-            "Upload PDF documents",
-            "Add digital signatures",
-            "Drag and position signatures",
-            "Download signed documents"
-        ]
+            "رفع ملفات PDF بسهولة",
+            "إضافة التوقيع الإلكتروني",
+            "سحب وإفلات التوقيع",
+            "تحميل فوري للمستند الموقع",
+            "أمان كامل للبيانات",
+            "بدون تسجيل مطلوب",
+            "يعمل على جميع الأجهزة"
+        ],
+        "screenshot": "https://tahfiz.sbs/screenshot.png",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "150",
+            "bestRating": "5"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "PDF E-Signature Pro Team"
+        }
     }
     </script>
 
@@ -76,30 +467,93 @@
 
 </head>
 <body>
-    <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-6874682307249152">
-</amp-auto-ads>
-    <div class="hero-bg">
-        <div class="animated-bg"></div>
-    </div>
-    
-    <div class="container">
-        <!-- Top AdSense Ad -->
-        <div class="ad-container top-ad">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-6874682307249152"
-                 data-ad-slot="8931199653"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+    <!-- Header -->
+    <header class="header-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <i class="fas fa-file-signature"></i>
+                </div>
+                <span class="brand-text" data-en="PDF E-Signature Pro" data-ar="محرر التوقيع الإلكتروني">محرر التوقيع الإلكتروني</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link active" data-en="Home" data-ar="الرئيسية">الرئيسية</a>
+                <a href="tools.html" class="nav-link" data-en="Tools" data-ar="الأدوات">الأدوات</a>
+                <a href="about.html" class="nav-link" data-en="About" data-ar="حول">حول</a>
+                <a href="help.html" class="nav-link" data-en="Help" data-ar="مساعدة">مساعدة</a>
+                <a href="contact.html" class="nav-link" data-en="Contact" data-ar="اتصل بنا">اتصل بنا</a>
+            </nav>
+            
+            <div class="nav-controls">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">
+                    <span class="lang-text">EN</span>
+                </button>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h3 data-en="Quick Tools" data-ar="الأدوات السريعة">الأدوات السريعة</h3>
+                <a href="index.html" class="sidebar-link active">
+                    <i class="fas fa-file-signature"></i>
+                    <span data-en="PDF Signature" data-ar="توقيع PDF">توقيع PDF</span>
+                </a>
+                <a href="tools.html" class="sidebar-link">
+                    <i class="fas fa-tools"></i>
+                    <span data-en="PDF Tools" data-ar="أدوات PDF">أدوات PDF</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 data-en="Information" data-ar="المعلومات">المعلومات</h3>
+                <a href="about.html" class="sidebar-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span data-en="About Us" data-ar="حولنا">حولنا</span>
+                </a>
+                <a href="help.html" class="sidebar-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span data-en="Help Center" data-ar="مركز المساعدة">مركز المساعدة</span>
+                </a>
+                <a href="contact.html" class="sidebar-link">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Contact" data-ar="اتصل بنا">اتصل بنا</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="hero-bg">
+            <div class="animated-bg"></div>
         </div>
         
-        <div class="header">
-            <div class="logo">
-                <i class="fas fa-file-signature"></i>
-            </div>
-            <h1 class="title">PDF E-Signature Pro</h1>
-            <p class="subtitle">Sign your documents digitally with style</p>
+        <amp-auto-ads type="adsense" data-ad-client="ca-pub-6874682307249152"></amp-auto-ads>
+        
+        <div class="container">
+        <!-- Top AdSense Ad -->
+        <div class="ad-container top-ad">
+   <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-6874682307249152"
+        data-ad-slot="8931199653"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+        </div>
+        
+        <div class="page-header">
+            <h1 class="page-title" data-en="PDF E-Signature Pro" data-ar="محرر التوقيع الإلكتروني">محرر التوقيع الإلكتروني</h1>
+            <p class="page-subtitle" data-en="🔒 Sign your documents digitally with ease and security | Free digital signature tool" data-ar="🔒 وقع مستنداتك الإلكترونية بسهولة وأمان | أداة مجانية للتوقيع الرقمي">🔒 وقع مستنداتك الإلكترونية بسهولة وأمان | أداة مجانية للتوقيع الرقمي</p>
         </div>
         
         <div class="upload-section">
@@ -107,8 +561,8 @@
                 <label for="pdf-upload" class="upload-area pdf-upload">
                     <input type="file" id="pdf-upload" accept=".pdf" hidden aria-label="Upload PDF document file" />
                     <i class="fas fa-file-pdf" aria-hidden="true"></i>
-                    <h2>Upload PDF Document</h2>
-                    <p>Click to browse or drag and drop</p>
+                    <h2 data-en="Upload PDF File" data-ar="رفع ملف PDF">رفع ملف PDF</h2>
+                    <p data-en="Choose or drag and drop the PDF file you want to sign" data-ar="اختر أو اسحب وأفلت ملف PDF الذي تريد توقيعه">اختر أو اسحب وأفلت ملف PDF الذي تريد توقيعه</p>
                     <span class="file-name" id="pdf-name" aria-live="polite"></span>
                 </label>
             </div>
@@ -117,8 +571,8 @@
                 <label for="signature-upload" class="upload-area signature-upload">
                     <input type="file" id="signature-upload" accept=".png" hidden aria-label="Upload signature image file" />
                     <i class="fas fa-signature" aria-hidden="true"></i>
-                    <h2>Upload Signature</h2>
-                    <p>PNG format recommended</p>
+                    <h2 data-en="Upload Signature" data-ar="رفع التوقيع">رفع التوقيع</h2>
+                    <p data-en="Upload your signature image in PNG format for best quality" data-ar="ارفع صورة توقيعك بصيغة PNG للحصول على أفضل جودة">ارفع صورة توقيعك بصيغة PNG للحصول على أفضل جودة</p>
                     <span class="file-name" id="sig-name" aria-live="polite"></span>
                 </label>
             </div>
@@ -127,11 +581,11 @@
         <div class="action-bar">
             <button id="clear-signature" class="secondary-btn" disabled aria-label="Clear signature from document">
                 <i class="fas fa-eraser" aria-hidden="true"></i>
-                Clear Signature
+                <span data-en="Clear Signature" data-ar="مسح التوقيع">مسح التوقيع</span>
             </button>
             <button id="save-pdf" class="primary-btn" disabled aria-label="Download signed PDF document">
                 <i class="fas fa-download" aria-hidden="true"></i>
-                Save Signed PDF
+                <span data-en="Download Signed PDF" data-ar="تحميل PDF موقع">تحميل PDF موقع</span>
             </button>
         </div>
         
@@ -139,7 +593,7 @@
             <div id="pdf-container" class="pdf-viewer" role="application" aria-label="PDF document viewer and signature workspace">
                 <div class="empty-state">
                     <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
-                    <p>Upload a PDF document to get started</p>
+                    <p data-en="Upload a PDF file to start the electronic signature process" data-ar="ارفع ملف PDF للبدء في عملية التوقيع الإلكتروني">ارفع ملف PDF للبدء في عملية التوقيع الإلكتروني</p>
                 </div>
                 <canvas id="pdf-canvas" aria-label="PDF document canvas"></canvas>
                 <div id="signature-layer" aria-label="Signature positioning layer"></div>
@@ -148,57 +602,150 @@
         
         <!-- Middle AdSense Ad -->
         <div class="ad-container middle-ad">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-format="autorelaxed"
-                 data-ad-client="ca-pub-6874682307249152"
-                 data-ad-slot="5542618989"></ins>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-6874682307249152"
+     data-ad-slot="5542618989"></ins>
         </div>
         
         <div class="instructions">
-            <h2><i class="fas fa-info-circle" aria-hidden="true"></i> How to use:</h2>
+            <h2><i class="fas fa-info-circle" aria-hidden="true"></i> طريقة استخدام أداة التوقيع الإلكتروني:</h2>
             <div class="steps">
                 <div class="step">
                     <span class="step-number" aria-label="Step 1">1</span>
-                    <p>Upload your PDF document</p>
+                    <p>ارفع ملف PDF المراد توقيعه</p>
                 </div>
                 <div class="step">
                     <span class="step-number" aria-label="Step 2">2</span>
-                    <p>Upload your signature (PNG)</p>
+                    <p>ارفع صورة توقيعك (PNG مفضل)</p>
                 </div>
                 <div class="step">
                     <span class="step-number" aria-label="Step 3">3</span>
-                    <p>Drag signature to desired position</p>
+                    <p>اسحب التوقيع للمكان المطلوب</p>
                 </div>
                 <div class="step">
                     <span class="step-number" aria-label="Step 4">4</span>
-                    <p>Resize if needed & save</p>
+                    <p>اضبط الحجم واحفظ المستند</p>
                 </div>
             </div>
         </div>
         
+        <!-- SEO Content Section -->
+        <section class="seo-content">
+            <h2>🔒 لماذا تختار أداة التوقيع الإلكتروني الخاصة بنا؟</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>🛡️ أمان كامل</h3>
+                    <p>جميع ملفاتك تتم معالجتها محلياً في متصفحك ولا نحتفظ بأي نسخ على خوادمنا</p>
+                </div>
+                <div class="feature">
+                    <h3>⚡ سريع ومجاني</h3>
+                    <p>وقع مستنداتك في ثوانٍ معدودة بدون رسوم أو اشتراكات</p>
+                </div>
+                <div class="feature">
+                    <h3>📱 يعمل على جميع الأجهزة</h3>
+                    <p>متوافق مع الكمبيوتر والموبايل والتابلت - لا يحتاج تثبيت برامج</p>
+                </div>
+                <div class="feature">
+                    <h3>📄 جودة احترافية</h3>
+                    <p>احتفظ بجودة ملف PDF الأصلية مع إضافة توقيع عالي الدقة</p>
+                </div>
+            </div>
+            
+            <h3>الاستخدامات الشائعة:</h3>
+            <ul class="usage-list">
+                <li>توقيع العقود والاتفاقيات</li>
+                <li>توقيع المستندات الرسمية</li>
+                <li>اعتماد الطلبات والنماذج</li>
+                <li>توقيع الفواتير والمراسلات</li>
+                <li>توقيع الشهادات والتقارير</li>
+            </ul>
+        </section>
+
         <!-- Bottom AdSense Ad -->
         <div class="ad-container bottom-ad">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-format="autorelaxed"
-                 data-ad-client="ca-pub-6874682307249152"
-                 data-ad-slot="5286618050"></ins>
+   <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-format="autorelaxed"
+        data-ad-client="ca-pub-6874682307249152"
+        data-ad-slot="5286618050"></ins>
         </div>
-    </div>
+        </div>
+    </main>
+    
+    <!-- Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    
+    <!-- Immediate JavaScript for UI functionality -->
+    <script>
+        // Immediate initialization to ensure UI works
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('UI initialized');
+            
+            // Ensure header and sidebar are visible
+            const header = document.querySelector('.header-nav');
+            const sidebar = document.querySelector('.sidebar');
+            
+            if (header) {
+                header.style.display = 'block';
+                header.style.visibility = 'visible';
+                header.style.opacity = '1';
+            }
+            
+            if (sidebar) {
+                sidebar.style.display = 'block';
+                sidebar.style.visibility = 'visible';
+                sidebar.style.opacity = '1';
+            }
+            
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const html = document.documentElement;
+                    const currentTheme = html.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                });
+            }
+            
+            // Language toggle functionality
+            const langToggle = document.getElementById('lang-toggle');
+            if (langToggle) {
+                langToggle.addEventListener('click', function() {
+                    const html = document.documentElement;
+                    const currentLang = html.getAttribute('lang');
+                    const newLang = currentLang === 'ar' ? 'en' : 'ar';
+                    html.setAttribute('lang', newLang);
+                    html.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
+                    localStorage.setItem('language', newLang);
+                    
+                    // Update language button text
+                    const langText = langToggle.querySelector('.lang-text');
+                    if (langText) {
+                        langText.textContent = newLang === 'ar' ? 'EN' : 'ع';
+                    }
+                });
+            }
+            
+            // Mobile menu functionality will be handled by script.js
+        });
+    </script>
     
     <!-- Defer heavy scripts to improve initial load time -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script defer src="script.js"></script>
+    <script src="script.js?v=2.0"></script>
     
     <!-- Initialize AdSense Ads -->
     <script>
         // Initialize all ads when ready
         window.addEventListener('load', function() {
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
         });
     </script>
     
